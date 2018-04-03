@@ -21,16 +21,17 @@
     </dependency>
   </dependencies>
   
-  
 <distributionManagement>
     <repository>
-        <id>4df46e30af4e</id>
-        <name>4df46e30af4e-releases</name>
-        <url>http://13.127.229.164:8081/artifactory/list/jenkins/</url>
+        <id>aleesha</id>
+        <name>aleesha-releases</name>
+        <url>http://13.232.2.248:8080/artifactory/Yuvaraj</url>
     </repository>
-</distributionManagement>
-
-
-
+    <snapshotRepository>
+        <id>aleesha</id>
+        <name>aleesha-snapshots</name>
+        <url>http://13.232.2.248:8080/artifactory/Yuvaraj</url>
+    </snapshotRepository>
+</distributionManagement>  
 
 </project>
