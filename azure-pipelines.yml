@@ -37,9 +37,16 @@ stages:
   - job: Deploy
   
     steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(Build.ArtifactsDirectory)'
+
     - task: AzureRmWebAppDeployment@4
       displayName: 'Azure App Service Deploy: March9WebApp'
       inputs:
         azureSubscription: 'Free Trial (efb08948-01a4-4487-aca4-757f93e436db)'
         WebAppName: March9WebApp
-        packageForLinux: '$(build.artifactstagingdirectory)/**/*.jar'
+        packageForLinux: '$(build.ArtifactsDirectory)/**/*.jar'
