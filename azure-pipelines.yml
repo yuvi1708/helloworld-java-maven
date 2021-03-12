@@ -21,3 +21,23 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: 'package'
+
+- stage: Deployment
+  displayName: Deploy
+  jobs:
+  - job: deploy
+    
+    steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        downloadPath: '$(Build.ArtifactsDirectory)'
+    
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Free Trial (efb08948-01a4-4487-aca4-757f93e436db)'
+        appType: 'webApp'
+        WebAppName: 'March9WebApp'
+        packageForLinux: '$(Build.ArtifactsDirectory)/**/*.jar'
