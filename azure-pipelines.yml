@@ -2,24 +2,23 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  name: 'AgentPool01'
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Free Trial (efb08948-01a4-4487-aca4-757f93e436db)'
-    appType: 'webApp'
-    WebAppName: 'March9WebApp'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+stages:
+- stage: Build
+  displayName: Build
+  jobs:
+  - job: Build
+  
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
